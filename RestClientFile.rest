@@ -1,0 +1,60 @@
+
+### Create a new user with Role/Authority ADMIN
+POST    http://localhost:8090/api/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin",
+    "email": "admin@ut.ee",
+    "password": "admin",
+    "roles": "ADMIN"
+}
+
+### Create a new user with Role/Authority USER
+POST  http://localhost:8090/api/signup HTTP/1.1
+content-type: application/json
+{
+    "name": "user",
+    "email": "admin@ut.ee",
+    "password": "user",
+    "roles": "USER"
+}
+
+### login  
+POST    http://localhost:8090/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "name": "admin",
+    "password": "admin"
+}
+
+
+### authenticate - you need to add the generated token here, you can get it from your browser console when a user login or sign up
+GET     http://localhost:8090/api/auth/authenticate HTTP/1.1
+content-type: application/json
+Authorization: Bearer 
+
+
+###############################################################
+
+### Public endpoint
+GET http://localhost:8090/api/auth/public
+
+
+### Protected endpoint - only admins (Role ADMIN) are allowed by Bearer token
+### This endpoint is called by your Vuejs client automatically when a user with ADMIN role login or signup
+GET http://localhost:8090/api/auth/admin
+Content-Type: application/json
+Authorization: Bearer 
+
+### Protected endpoint - only users (Role USER) are allowed by Bearer token
+### This endpoint is called by your Vuejs client automatically when a user with ADMIN role login or signup
+GET http://localhost:8090/api/auth/user
+Content-Type: application/json
+Authorization: Bearer 
+
+
+
+
+
